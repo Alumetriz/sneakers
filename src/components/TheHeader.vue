@@ -1,7 +1,12 @@
 <script setup>
-import {HEADER_ITEMS} from "@/constans.js";
-</script>
+import { HEADER_ITEMS } from '@/constans.js'
 
+const emit = defineEmits(['open-cart'])
+
+const openCart = () => {
+  emit('open-cart')
+}
+</script>
 
 <template>
   <header class="flex justify-between items-center border-b border-[#EAEAEA] p-11">
@@ -16,7 +21,7 @@ import {HEADER_ITEMS} from "@/constans.js";
     <nav>
       <ul class="flex gap-8">
         <li v-for="item in HEADER_ITEMS" :key="item.title">
-          <a href="#" class="flex gap-2.5">
+          <a href="#" class="flex gap-2.5" @click.prevent="item.title === 'Корзина' ? openCart() : ''">
             <img :src="item.img" :alt="item.title" />
             <span class="text-[#5C5C5C] font-normal">{{ item.title }}</span>
           </a>

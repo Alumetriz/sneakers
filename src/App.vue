@@ -1,7 +1,6 @@
 <script setup>
 import { onMounted, ref } from 'vue'
 
-
 let sneakers = ref([])
 const fetchData = async () => {
   const response = await fetch('https://6574bc99b2fbb8f6509c9af4.mockapi.io/sneakers')
