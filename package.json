@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@heroicons/vue": "^2.0.18",
+    "axios": "^1.6.2",
     "vue": "^3.3.10"
   },
   "devDependencies": {

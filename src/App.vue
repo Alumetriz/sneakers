@@ -1,21 +1,44 @@
 <script setup>
-import { onMounted, ref } from 'vue'
+import {onMounted, ref, watch} from 'vue'
+
+import axios from 'axios'
 
 let sneakers = ref([])
-const fetchData = async () => {
-  const response = await fetch('https://6574bc99b2fbb8f6509c9af4.mockapi.io/sneakers')
-  const data = await response.json()
-  return data
+const fetchData = async (url) => {
+  try {
+    const { data } = await axios.get(url)
+    sneakers.value = data
+  } catch (e) {
+    console.log(e)
+  }
 }
 
-onMounted(async () => {
-  sneakers.value = await fetchData()
+onMounted(  () => {
+  fetchData('https://3beff67661303c60.mokky.dev/items')
+})
+
+const sortBy = ref('')
+const searchQuery = ref('')
+
+const onChangeSelect = (value) => {
+  sortBy.value = value
+}
+const handleSearch = (value) => {
+  searchQuery.value = value
+}
+
+watch(sortBy, () => {
+  fetchData(`https://3beff67661303c60.mokky.dev/items?sortBy=${sortBy.value}`)
+})
+
+watch(searchQuery, () => {
+  fetchData(`https://3beff67661303c60.mokky.dev/items?title=*${searchQuery.value}*`)
 })
 </script>
 
 <template>
   <div class="w-4/5 mx-auto bg-white my-10 rounded-2xl">
-    <home-page :sneakers="sneakers"></home-page>
+    <home-page :sneakers="sneakers" @sort="onChangeSelect" @search="handleSearch"></home-page>
   </div>
 </template>
 

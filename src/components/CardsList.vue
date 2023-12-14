@@ -1,9 +1,10 @@
 <script setup>
-defineProps({
+const props = defineProps({
   sneakers: {
     type: Array
   }
 })
+console.log('test', props.sneakers)
 </script>
 
 <template>
@@ -16,7 +17,7 @@ defineProps({
       <img src="@/assets/img/like-1.svg" alt="" class="absolute cursor-pointer h-9 w-9" />
       <img :src="sneaker.img" alt="Sneakers" />
 
-      <h3 class="mt-2">Мужские Кроссовки Nike Blazer Mid Suede</h3>
+      <h3 class="mt-2">{{ sneaker.title }}</h3>
 
       <div class="flex items-center justify-between mt-5">
         <div class="flex flex-col">

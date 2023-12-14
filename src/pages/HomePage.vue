@@ -7,6 +7,15 @@ defineProps({
   }
 })
 
+const emit = defineEmits(['sort', 'search'])
+
+const sort = (value) => {
+  emit('sort', value)
+}
+const search = (value) => {
+  emit('search', value)
+}
+
 const cartIsOpen = ref(false)
 
 const openCart = () => {
@@ -24,7 +33,7 @@ const closeCart = () => {
   <the-header @open-cart="openCart"></the-header>
 
   <main class="p-11">
-    <filter-panel></filter-panel>
+    <filter-panel @sort="sort" @search="search"></filter-panel>
 
     <cards-list :sneakers="sneakers"></cards-list>
   </main>
