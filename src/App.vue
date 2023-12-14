@@ -1,39 +1,46 @@
 <script setup>
-import {onMounted, ref, watch} from 'vue'
+import { onMounted, reactive, ref, watch } from 'vue'
 
 import axios from 'axios'
 
 let sneakers = ref([])
-const fetchData = async (url) => {
+
+const fetchData = async () => {
   try {
-    const { data } = await axios.get(url)
+    const params = {
+      sortBy: filters.sortBy
+    }
+
+    if (filters.searchQuery) {
+      params.title = `*${filters.searchQuery}*`
+    }
+
+    const { data } = await axios.get(`https://3beff67661303c60.mokky.dev/items`, {
+      params
+    })
     sneakers.value = data
   } catch (e) {
     console.log(e)
   }
 }
 
-onMounted(  () => {
-  fetchData('https://3beff67661303c60.mokky.dev/items')
+onMounted(() => {
+  fetchData()
 })
 
-const sortBy = ref('')
-const searchQuery = ref('')
+const filters = reactive({
+  sortBy: 'name',
+  searchQuery: ''
+})
 
 const onChangeSelect = (value) => {
-  sortBy.value = value
+  filters.sortBy = value
 }
 const handleSearch = (value) => {
-  searchQuery.value = value
+  filters.searchQuery = value
 }
 
-watch(sortBy, () => {
-  fetchData(`https://3beff67661303c60.mokky.dev/items?sortBy=${sortBy.value}`)
-})
-
-watch(searchQuery, () => {
-  fetchData(`https://3beff67661303c60.mokky.dev/items?title=*${searchQuery.value}*`)
-})
+watch(filters, () => fetchData())
 </script>
 
 <template>
