@@ -9,6 +9,7 @@ import HomePage from '@/pages/HomePage.vue'
 import ShoppingCart from '@/components/ShoppingCart.vue'
 import CartHeader from "@/components/CartHeader.vue";
 import CartList from "@/components/CartList.vue";
+import CardItem from "@/components/CardItem.vue";
 
 const app = createApp(App)
 
@@ -19,5 +20,6 @@ app.component('home-page', HomePage)
 app.component('shopping-cart', ShoppingCart)
 app.component('cart-header', CartHeader)
 app.component('cart-list', CartList)
+app.component('card-item', CardItem)
 
 app.mount('#app')
