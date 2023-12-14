@@ -1,6 +1,8 @@
 import './assets/main.css'
 
 import { createApp } from 'vue'
+import {router} from "@/router/index.js";
+
 import App from './App.vue'
 import TheHeader from '@/components/TheHeader.vue'
 import FilterPanel from '@/components/FilterPanel.vue'
@@ -25,4 +27,6 @@ app.component('card-item', CardItem)
 app.component('home-page', HomePage)
 app.component('favorites-page', FavoritesPage)
 
-app.mount('#app')
+app
+    .use(router)
+    .mount('#app')

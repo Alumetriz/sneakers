@@ -1,43 +1,98 @@
 <script setup>
-import { ref } from 'vue'
+import {onMounted, reactive, ref, watch} from 'vue'
+import axios from 'axios'
 
-defineProps({
-  sneakers: {
-    type: Array
+let sneakers = ref([])
+
+const fetchFavorites = async () => {
+  try {
+    const { data: favorites } = await axios.get('https://3beff67661303c60.mokky.dev/favorites')
+    sneakers.value = sneakers.value.map((sneaker) => {
+      const favoriteSneaker = favorites.find((favorite) => favorite.parentId === sneaker.id)
+
+      if (!favoriteSneaker) {
+        return {
+          ...sneaker
+        }
+      }
+
+      return {
+        ...sneaker,
+        isFavorite: true,
+        favoriteId: favoriteSneaker.id
+      }
+    })
+  } catch (e) {
+    console.log(e)
   }
+}
+
+const fetchData = async () => {
+  try {
+    const params = {
+      sortBy: filters.sortBy
+    }
+
+    if (filters.searchQuery) {
+      params.title = `*${filters.searchQuery}*`
+    }
+
+    const { data } = await axios.get(`https://3beff67661303c60.mokky.dev/items`, {
+      params
+    })
+    sneakers.value = data.map((sneaker) => {
+      return {
+        ...sneaker,
+        isFavorite: false
+      }
+    })
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+const addToFavorite = async (sneaker) => {
+  try {
+    if (!sneaker.isFavorite) {
+      const { data } = await axios.post('https://3beff67661303c60.mokky.dev/favorites', {
+        ...sneaker,
+        parentId: sneaker.id
+      })
+      sneaker.isFavorite = true
+      sneaker.favoriteId = data.id
+    } else {
+      await axios.delete(`https://3beff67661303c60.mokky.dev/favorites/${sneaker.favoriteId}`)
+      sneaker.isFavorite = false
+      sneaker.favoriteId = null
+    }
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+onMounted(() => {
+  fetchData()
+  fetchFavorites()
 })
 
-const emit = defineEmits(['sort', 'search', 'addToFavorite'])
+const filters = reactive({
+  sortBy: 'name',
+  searchQuery: ''
+})
 
-const addToFavorite = (sneaker) => {
-  emit('addToFavorite', sneaker)
+const onChangeSelect = (value) => {
+  filters.sortBy = value
+}
+const handleSearch = (value) => {
+  filters.searchQuery = value
 }
 
-const sort = (value) => {
-  emit('sort', value)
-}
-const search = (value) => {
-  emit('search', value)
-}
-
-const cartIsOpen = ref(false)
-
-const openCart = () => {
-  cartIsOpen.value = true
-}
-
-const closeCart = () => {
-  cartIsOpen.value = false
-}
+watch(filters, () => fetchData())
 </script>
 
 <template>
-  <shopping-cart :cart-is-open="cartIsOpen" @close-cart="closeCart"></shopping-cart>
-
-  <the-header @open-cart="openCart"></the-header>
-
   <main class="p-11">
-    <filter-panel @sort="sort" @search="search"></filter-panel>
+    <filter-panel @sort="onChangeSelect" @search="handleSearch"></filter-panel>
 
     <cards-list :sneakers="sneakers" @add-to-favorite="addToFavorite"></cards-list>
   </main>
