@@ -21,7 +21,7 @@ const openCart = () => {
     <nav>
       <ul class="flex gap-8">
         <li v-for="item in HEADER_ITEMS" :key="item.title">
-          <a href="#" class="flex gap-2.5" @click.prevent="item.title === 'Корзина' ? openCart() : ''">
+          <a href="../pages/FavoritesPage.vue" class="flex gap-2.5" @click="item.title === 'Корзина' ? openCart() : ''">
             <img :src="item.img" :alt="item.title" />
             <span class="text-[#5C5C5C] font-normal">{{ item.title }}</span>
           </a>

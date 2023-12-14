@@ -1,5 +1,5 @@
 <script setup>
-defineProps({
+const props = defineProps({
   sneaker: {
     type: Object
     // title: String,
@@ -11,13 +11,32 @@ defineProps({
     // onClickFavorite: Function
   }
 })
+
+const emit = defineEmits(['addToFavorite'])
+
+const addToFavorite = () => {
+  emit('addToFavorite', props.sneaker)
+}
 </script>
 
 <template>
   <div
     class="relative border border-gray-200 p-8 rounded-3xl cursor-pointer transition hover:-translate-y-2 hover:shadow-xl"
   >
-    <img src="@/assets/img/like-1.svg" alt="" class="absolute cursor-pointer h-9 w-9" />
+    <img
+      v-if="!sneaker.isFavorite"
+      src="@/assets/img/like-1.svg"
+      alt=""
+      class="absolute cursor-pointer h-9 w-9"
+      @click="addToFavorite"
+    />
+    <img
+      v-else
+      src="@/assets/img/like-2.svg"
+      alt=""
+      class="absolute cursor-pointer h-9 w-9"
+      @click="addToFavorite"
+    />
     <img :src="sneaker.img" alt="Sneakers" />
 
     <h3 class="mt-2">{{ sneaker.title }}</h3>

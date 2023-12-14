@@ -7,7 +7,11 @@ defineProps({
   }
 })
 
-const emit = defineEmits(['sort', 'search'])
+const emit = defineEmits(['sort', 'search', 'addToFavorite'])
+
+const addToFavorite = (sneaker) => {
+  emit('addToFavorite', sneaker)
+}
 
 const sort = (value) => {
   emit('sort', value)
@@ -35,7 +39,7 @@ const closeCart = () => {
   <main class="p-11">
     <filter-panel @sort="sort" @search="search"></filter-panel>
 
-    <cards-list :sneakers="sneakers"></cards-list>
+    <cards-list :sneakers="sneakers" @add-to-favorite="addToFavorite"></cards-list>
   </main>
 </template>
 
