@@ -4,10 +4,19 @@ import ArrowRightIcon from '@heroicons/vue/24/solid/ArrowRightIcon'
 defineProps({
   cartIsOpen: {
     type: Boolean
+  },
+  orders: {
+    type: Array
   }
 })
 
-const emit = defineEmits(['close-cart'])
+const emit = defineEmits(['close-cart', 'updateCart'])
+
+const updateCart = (order) => {
+  emit('updateCart', order)
+}
+
+
 </script>
 
 <template>
@@ -24,7 +33,7 @@ const emit = defineEmits(['close-cart'])
       <div class="flex flex-col gap-3 h-4/5">
         <cart-header @close-cart="emit('close-cart')"></cart-header>
 
-        <cart-list></cart-list>
+        <cart-list :orders="orders" @update-cart="updateCart"></cart-list>
       </div>
 
       <div class="flex flex-col gap-3">

@@ -2,6 +2,8 @@
 import { onMounted, reactive, ref, watch } from 'vue'
 import axios from 'axios'
 
+const emit = defineEmits(['update-cart'])
+
 let sneakers = ref([])
 
 const fetchFavorites = async () => {
@@ -57,7 +59,7 @@ const updateFavorite = async (sneaker) => {
       const { data } = await axios.post('https://3beff67661303c60.mokky.dev/favorites', {
         ...sneaker,
         parentId: sneaker.id,
-        isFavorite: true,
+        isFavorite: true
       })
       sneaker.isFavorite = true
       sneaker.favoriteId = data.id
@@ -69,6 +71,10 @@ const updateFavorite = async (sneaker) => {
   } catch (e) {
     console.log(e)
   }
+}
+
+const updateCart = (sneaker) => {
+  emit('update-cart', sneaker)
 }
 
 onMounted(() => {
@@ -95,7 +101,11 @@ watch(filters, () => fetchData())
   <main class="p-11">
     <filter-panel @sort="onChangeSelect" @search="handleSearch"></filter-panel>
 
-    <cards-list :sneakers="sneakers" @update-favorite="updateFavorite"></cards-list>
+    <cards-list
+      :sneakers="sneakers"
+      @update-favorite="updateFavorite"
+      @update-cart="updateCart"
+    ></cards-list>
   </main>
 </template>
 

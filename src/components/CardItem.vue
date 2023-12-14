@@ -12,10 +12,13 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits(['updateFavorite'])
+const emit = defineEmits(['updateFavorite', 'updateCart'])
 
 const updateFavorite = () => {
   emit('updateFavorite', props.sneaker)
+}
+const updateCart = () => {
+  emit('updateCart', props.sneaker)
 }
 </script>
 
@@ -46,7 +49,13 @@ const updateFavorite = () => {
         <span class="text-[#BDBDBD]">Цена:</span>
         <span class="font-bold text-sm">{{ sneaker.price.toLocaleString('us-US') }} руб.</span>
       </div>
-      <img src="@/assets/img/plus.svg" alt="Add" class="cursor-pointer h-9 w-9" />
+
+      <img
+        src="@/assets/img/plus.svg"
+        alt="Add"
+        class="cursor-pointer h-9 w-9"
+        @click="updateCart"
+      />
     </div>
   </div>
 </template>
