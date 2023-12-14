@@ -1,5 +1,5 @@
 <script setup>
-import {onMounted, reactive, ref, watch} from 'vue'
+import { onMounted, reactive, ref, watch } from 'vue'
 import axios from 'axios'
 
 let sneakers = ref([])
@@ -51,12 +51,13 @@ const fetchData = async () => {
   }
 }
 
-const addToFavorite = async (sneaker) => {
+const updateFavorite = async (sneaker) => {
   try {
     if (!sneaker.isFavorite) {
       const { data } = await axios.post('https://3beff67661303c60.mokky.dev/favorites', {
         ...sneaker,
-        parentId: sneaker.id
+        parentId: sneaker.id,
+        isFavorite: true,
       })
       sneaker.isFavorite = true
       sneaker.favoriteId = data.id
@@ -94,7 +95,7 @@ watch(filters, () => fetchData())
   <main class="p-11">
     <filter-panel @sort="onChangeSelect" @search="handleSearch"></filter-panel>
 
-    <cards-list :sneakers="sneakers" @add-to-favorite="addToFavorite"></cards-list>
+    <cards-list :sneakers="sneakers" @update-favorite="updateFavorite"></cards-list>
   </main>
 </template>
 

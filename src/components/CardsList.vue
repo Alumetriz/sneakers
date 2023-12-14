@@ -6,10 +6,10 @@ defineProps({
   }
 })
 
-const emit = defineEmits(['addToFavorite'])
+const emit = defineEmits(['updateFavorite'])
 
-const addToFavorite = (sneaker) => {
-  emit('addToFavorite', sneaker)
+const updateFavorite = (sneaker) => {
+  emit('updateFavorite', sneaker)
 }
 </script>
 
@@ -19,7 +19,7 @@ const addToFavorite = (sneaker) => {
       v-for="sneaker in sneakers"
       :key="sneaker.id"
       :sneaker="sneaker"
-      @add-to-favorite="addToFavorite"
+      @update-favorite="updateFavorite"
     ></card-item>
   </div>
 </template>

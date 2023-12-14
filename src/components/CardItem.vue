@@ -12,10 +12,10 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits(['addToFavorite'])
+const emit = defineEmits(['updateFavorite'])
 
-const addToFavorite = () => {
-  emit('addToFavorite', props.sneaker)
+const updateFavorite = () => {
+  emit('updateFavorite', props.sneaker)
 }
 </script>
 
@@ -28,14 +28,14 @@ const addToFavorite = () => {
       src="@/assets/img/like-1.svg"
       alt=""
       class="absolute cursor-pointer h-9 w-9"
-      @click="addToFavorite"
+      @click="updateFavorite"
     />
     <img
       v-else
       src="@/assets/img/like-2.svg"
       alt=""
       class="absolute cursor-pointer h-9 w-9"
-      @click="addToFavorite"
+      @click="updateFavorite"
     />
     <img :src="sneaker.img" alt="Sneakers" />
 
