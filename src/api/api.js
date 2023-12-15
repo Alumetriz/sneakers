@@ -10,7 +10,7 @@ export const fetchData = async (filters, sneakers) => {
             params.title = `*${filters.searchQuery}*`
         }
 
-        const { data } = await axios.get(`https://3beff67661303c60.mokky.dev/items`, {
+        const { data } = await axios.get(`http://localhost:3000/items`, {
             params
         })
         sneakers.value = data.map((sneaker) => {
@@ -26,7 +26,7 @@ export const fetchData = async (filters, sneakers) => {
 
 export const fetchFavorites = async (sneakers) => {
     try {
-        const { data: favorites } = await axios.get('https://3beff67661303c60.mokky.dev/favorites')
+        const { data: favorites } = await axios.get('http://localhost:3000/favorites')
         sneakers.value = sneakers.value.map((sneaker) => {
             const favoriteSneaker = favorites.find((favorite) => favorite.parentId === sneaker.id)
 
@@ -50,7 +50,7 @@ export const fetchFavorites = async (sneakers) => {
 export const updateFavorite = async (sneaker) => {
     try {
         if (!sneaker.isFavorite) {
-            const { data } = await axios.post('https://3beff67661303c60.mokky.dev/favorites', {
+            const { data } = await axios.post('http://localhost:3000/favorites', {
                 ...sneaker,
                 parentId: sneaker.id,
                 isFavorite: true
@@ -58,7 +58,7 @@ export const updateFavorite = async (sneaker) => {
             sneaker.isFavorite = true
             sneaker.favoriteId = data.id
         } else {
-            await axios.delete(`https://3beff67661303c60.mokky.dev/favorites/${sneaker.favoriteId}`)
+            await axios.delete(`http://localhost:3000/favorites/${sneaker.favoriteId}`)
             sneaker.isFavorite = false
             sneaker.favoriteId = null
         }
