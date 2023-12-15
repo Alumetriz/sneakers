@@ -51,8 +51,16 @@ const updateCart = () => {
       </div>
 
       <img
+        v-if="!sneaker.isAdded"
         src="@/assets/img/plus.svg"
         alt="Add"
+        class="cursor-pointer h-9 w-9"
+        @click="updateCart"
+      />
+      <img
+        v-else
+        src="@/assets/img/checked.svg"
+        alt="Added"
         class="cursor-pointer h-9 w-9"
         @click="updateCart"
       />
