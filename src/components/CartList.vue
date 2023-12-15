@@ -1,17 +1,12 @@
 <script setup>
 import CartItem from '@/components/CartItem.vue'
+import { orders } from '@/constans/constans.js'
+import { deleteOrder, fetchOrders } from '@/api/ordersApi.js'
+import { onMounted } from 'vue'
 
-defineProps({
-  orders: {
-    type: Array
-  }
+onMounted(() => {
+  fetchOrders()
 })
-
-const emit = defineEmits(['updateCart'])
-
-const updateCart = (order) => {
-  emit('updateCart', order)
-}
 </script>
 
 <template>
@@ -22,7 +17,7 @@ const updateCart = (order) => {
       v-for="order in orders"
       :key="order.id"
       :order="order"
-      @update-cart="updateCart"
+      @delete-order="deleteOrder"
     ></cart-item>
   </div>
 </template>

@@ -5,10 +5,10 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits(['updateCart'])
+const emit = defineEmits(['deleteOrder'])
 
-const updateCart = () => {
-  emit('updateCart', props.order)
+const deleteOrder = () => {
+  emit('deleteOrder', props.order)
 }
 </script>
 
@@ -24,7 +24,7 @@ const updateCart = () => {
         src="@/assets/img/close.svg"
         alt="Add"
         class="cursor-pointer h-9 w-9"
-        @click="updateCart"
+        @click="deleteOrder"
       />
     </div>
   </div>

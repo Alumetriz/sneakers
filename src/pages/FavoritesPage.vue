@@ -3,9 +3,11 @@ import { onMounted } from 'vue'
 import {fetchFavorites, updateFavorite} from "@/api/favoritesApi.js";
 import {favorites} from "@/constans/constans.js";
 import ChevronLeftIcon from '@heroicons/vue/24/solid/ChevronLeftIcon'
+import {fetchData} from "@/api/api.js";
 
 onMounted(() => {
-  fetchFavorites(favorites)
+  fetchFavorites()
+  fetchData()
 })
 </script>
 

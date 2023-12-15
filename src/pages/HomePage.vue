@@ -1,23 +1,10 @@
 <script setup>
-import { onMounted, reactive, ref, watch } from 'vue'
-import { fetchData, fetchFavorites, updateFavorite } from '@/api/api.js'
-
-const emit = defineEmits(['update-cart'])
-
-let sneakers = ref([])
-
-const updateCart = (sneaker) => {
-  emit('update-cart', sneaker)
-}
+import { onMounted, watch } from 'vue'
+import { fetchData } from '@/api/api.js'
+import { sneakers, filters } from '@/constans/constans.js'
 
 onMounted(() => {
-  fetchData(filters, sneakers)
-  fetchFavorites(sneakers)
-})
-
-const filters = reactive({
-  sortBy: 'name',
-  searchQuery: ''
+  fetchData()
 })
 
 const onChangeSelect = (value) => {
@@ -27,18 +14,14 @@ const handleSearch = (value) => {
   filters.searchQuery = value
 }
 
-watch(filters, () => fetchData(filters, sneakers))
+watch(filters, () => fetchData())
 </script>
 
 <template>
   <main class="p-11">
     <filter-panel @sort="onChangeSelect" @search="handleSearch"></filter-panel>
 
-    <cards-list
-      :sneakers="sneakers"
-      @update-favorite="updateFavorite"
-      @update-cart="updateCart"
-    ></cards-list>
+    <cards-list :sneakers="sneakers"></cards-list>
   </main>
 </template>
 

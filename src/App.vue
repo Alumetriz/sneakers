@@ -1,7 +1,7 @@
 <script setup>
-import { onMounted, ref } from 'vue'
-import { fetchOrders, updateOrders } from '@/api/ordersApi.js'
-import {orders} from "@/constans/constans.js";
+import { ref } from 'vue'
+// import { fetchOrders, updateOrders } from '@/api/ordersApi.js'
+// import {orders} from "@/constans/constans.js";
 
 const cartIsOpen = ref(false)
 
@@ -13,9 +13,9 @@ const closeCart = () => {
   cartIsOpen.value = false
 }
 
-onMounted(() => {
-  fetchOrders(orders)
-})
+// onMounted(() => {
+//   fetchOrders()
+// })
 </script>
 
 <template>
@@ -25,11 +25,11 @@ onMounted(() => {
     <shopping-cart
       :cart-is-open="cartIsOpen"
       @close-cart="closeCart"
-      :orders="orders"
-      @update-cart="updateOrders"
     ></shopping-cart>
+<!--      :orders="orders"-->
+<!--      @update-cart="updateOrders"-->
 
-    <router-view @update-cart="updateOrders"></router-view>
+    <router-view></router-view>
   </div>
 </template>
 

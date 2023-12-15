@@ -1,19 +1,12 @@
 <script setup>
+import {updateOrders} from "@/api/ordersApi.js";
+import {updateFavorite} from "@/api/api.js";
 
 defineProps({
   sneakers: {
     type: Array
   }
 })
-
-const emit = defineEmits(['updateFavorite', 'updateCart'])
-
-const updateFavorite = (sneaker) => {
-  emit('updateFavorite', sneaker)
-}
-const updateCart = (sneaker) => {
-  emit('updateCart', sneaker)
-}
 </script>
 
 <template>
@@ -23,7 +16,7 @@ const updateCart = (sneaker) => {
       :key="sneaker.id"
       :sneaker="sneaker"
       @update-favorite="updateFavorite"
-      @update-cart="updateCart"
+      @update-cart="updateOrders"
     ></card-item>
   </div>
 </template>

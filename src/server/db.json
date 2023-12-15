@@ -19,8 +19,7 @@
       "type": "Мужские Кроссовки",
       "price": 8499,
       "img": "../src/assets/img/sneakers/sneakers-3.jpg",
-      "id": 3,
-      "isFavorite": true
+      "id": 3
     },
     {
       "title": "Puma X Aka Boku Future Rider",
@@ -86,6 +85,29 @@
       "id": 12
     }
   ],
-  "orders": [],
-  "favorites": []
+  "orders": [
+    {
+      "title": "Nike Air Max 270",
+      "type": "Мужские Кроссовки",
+      "price": 12999,
+      "img": "../src/assets/img/sneakers/sneakers-2.jpg",
+      "id": 2,
+      "isAdded": true,
+      "isFavorite": true,
+      "favoriteId": 2,
+      "parentId": 2
+    }
+  ],
+  "favorites": [
+    {
+      "title": "Nike Air Max 270",
+      "type": "Мужские Кроссовки",
+      "price": 12999,
+      "img": "../src/assets/img/sneakers/sneakers-2.jpg",
+      "id": 2,
+      "isAdded": false,
+      "isFavorite": true,
+      "parentId": 2
+    }
+  ]
 }
