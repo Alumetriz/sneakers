@@ -1,6 +1,7 @@
 <script setup>
 import { onMounted, ref } from 'vue'
-import axios from 'axios'
+import { fetchOrders, updateOrders } from '@/api/ordersApi.js'
+import {orders} from "@/constans/constans.js";
 
 const cartIsOpen = ref(false)
 
@@ -11,39 +12,9 @@ const openCart = () => {
 const closeCart = () => {
   cartIsOpen.value = false
 }
-const orders = ref([])
-
-const updateOrders = async (order) => {
-  try {
-    if (!order.isAdded) {
-      const { data } = await axios.post('https://3beff67661303c60.mokky.dev/orders', {
-        ...order,
-        parentId: order.id,
-        isAdded: true
-      })
-      order.isAdded = true
-      order.orderId = data.id
-      orders.value.push(data)
-    } else {
-      await axios.delete(`https://3beff67661303c60.mokky.dev/orders/${order.id}`)
-      orders.value = orders.value.filter((o) => o.id !== order.id)
-    }
-  } catch (e) {
-    console.log(e)
-  }
-}
-
-const fetchOrders = async () => {
-  try {
-    const { data } = await axios.get('https://3beff67661303c60.mokky.dev/orders')
-    orders.value = data
-  } catch (e) {
-    console.log(e)
-  }
-}
 
 onMounted(() => {
-  fetchOrders()
+  fetchOrders(orders)
 })
 </script>
 

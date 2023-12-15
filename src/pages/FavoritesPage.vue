@@ -1,30 +1,11 @@
 <script setup>
+import { onMounted } from 'vue'
+import {fetchFavorites, updateFavorite} from "@/api/favoritesApi.js";
+import {favorites} from "@/constans/constans.js";
 import ChevronLeftIcon from '@heroicons/vue/24/solid/ChevronLeftIcon'
-import { onMounted, ref } from 'vue'
-import axios from 'axios'
-
-const favorites = ref([])
-
-const fetchFavorites = async () => {
-  try {
-    const { data } = await axios.get('https://3beff67661303c60.mokky.dev/favorites')
-    favorites.value = data
-  } catch (e) {
-    console.log(e)
-  }
-}
-
-const updateFavorite = async (sneaker) => {
-  try {
-    await axios.delete(`https://3beff67661303c60.mokky.dev/favorites/${sneaker.id}`)
-    sneaker.isFavorite = false
-  } catch (e) {
-    console.log(e)
-  }
-}
 
 onMounted(() => {
-  fetchFavorites()
+  fetchFavorites(favorites)
 })
 </script>
 
