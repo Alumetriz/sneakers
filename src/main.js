@@ -2,6 +2,7 @@ import './assets/main.css'
 
 import { createApp } from 'vue'
 import {router} from "@/router/index.js";
+import { autoAnimatePlugin } from '@formkit/auto-animate/vue'
 
 import App from './App.vue'
 import TheHeader from '@/components/TheHeader.vue'
@@ -28,5 +29,6 @@ app.component('home-page', HomePage)
 app.component('favorites-page', FavoritesPage)
 
 app
+    .use(autoAnimatePlugin)
     .use(router)
     .mount('#app')

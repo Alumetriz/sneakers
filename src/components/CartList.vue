@@ -12,6 +12,7 @@ onMounted(() => {
 <template>
   <div
     class="overflow-y-auto scrollbar-w-10 scrollbar-track-bg-gray-300 scrollbar-thumb-gray-500 p-3"
+    v-auto-animate
   >
     <cart-item
       v-for="order in orders"
