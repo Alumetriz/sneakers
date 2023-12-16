@@ -4,10 +4,6 @@ import MagnifyingGlassIcon from '@heroicons/vue/24/outline/MagnifyingGlassIcon.j
 
 const emit = defineEmits(['sort', 'search'])
 
-// const onSelected = (e) => {
-//   emit('sort', e.target.value)
-// }
-
 const onSelected = (e) => {
   const selectedValue = e.target.value;
 

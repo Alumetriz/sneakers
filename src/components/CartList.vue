@@ -1,12 +1,8 @@
 <script setup>
 import CartItem from '@/components/CartItem.vue'
 import { orders } from '@/constans/constans.js'
-import { deleteOrder, fetchOrders } from '@/api/ordersApi.js'
-import { onMounted } from 'vue'
 
-onMounted(() => {
-  fetchOrders()
-})
+
 </script>
 
 <template>
@@ -18,7 +14,6 @@ onMounted(() => {
       v-for="order in orders"
       :key="order.id"
       :order="order"
-      @delete-order="deleteOrder"
     ></cart-item>
   </div>
 </template>

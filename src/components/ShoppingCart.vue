@@ -1,6 +1,4 @@
 <script setup>
-import { onMounted, watch } from 'vue'
-import { fetchOrders, updateOrders } from '@/api/ordersApi.js'
 import { calcCartPrice, calcPercent, buySneaker } from '@/api/cart.js'
 import ArrowRightIcon from '@heroicons/vue/24/solid/ArrowRightIcon'
 import { orders, ordersIsBought } from '@/constans/constans.js'
@@ -11,12 +9,9 @@ defineProps({
     type: Boolean
   }
 })
-onMounted(() => {
-  fetchOrders()
-})
 
 const emit = defineEmits(['close-cart', 'updateCart'])
-watch(orders, () => updateOrders())
+
 </script>
 
 <template>

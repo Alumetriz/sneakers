@@ -12,13 +12,14 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits(['updateFavorite', 'updateCart'])
+const emit = defineEmits(['sendFavoritesData', 'sendOrdersData'])
 
-const updateFavorite = () => {
-  emit('updateFavorite', props.sneaker)
+const sendFavoritesData = () => {
+  emit('sendFavoritesData', props.sneaker)
 }
-const updateCart = () => {
-  emit('updateCart', props.sneaker)
+
+const sendOrdersData = () => {
+  emit('sendOrdersData', props.sneaker)
 }
 </script>
 
@@ -31,14 +32,14 @@ const updateCart = () => {
       src="@/assets/img/like-1.svg"
       alt=""
       class="absolute cursor-pointer h-9 w-9"
-      @click="updateFavorite"
+      @click="sendFavoritesData"
     />
     <img
       v-else
       src="@/assets/img/like-2.svg"
       alt=""
       class="absolute cursor-pointer h-9 w-9"
-      @click="updateFavorite"
+      @click="sendFavoritesData"
     />
     <img :src="sneaker.img" alt="Sneakers" />
 
@@ -55,14 +56,14 @@ const updateCart = () => {
         src="@/assets/img/plus.svg"
         alt="Add"
         class="cursor-pointer h-9 w-9"
-        @click="updateCart"
+        @click="sendOrdersData"
       />
       <img
         v-else
         src="@/assets/img/checked.svg"
         alt="Added"
         class="cursor-pointer h-9 w-9"
-        @click="updateCart"
+        @click="sendOrdersData"
       />
     </div>
   </div>

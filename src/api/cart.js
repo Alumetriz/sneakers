@@ -1,5 +1,5 @@
 import { sneakers, percent, orders, ordersIsBought } from '@/constans/constans.js'
-import { deleteOrder, updateOrders } from '@/api/ordersApi.js'
+// import { deleteOrder, updateOrders } from '@/api/ordersApi.js'
 import axios from 'axios'
 
 export const calcCartQuantity = () => {
@@ -15,7 +15,7 @@ export const calcPercent = () => {
 
 export const buySneaker = () => {
   orders.value.forEach(async (order) => {
-    await updateOrders(order)
+    // await updateOrders(order)
   })
   orders.value = []
 

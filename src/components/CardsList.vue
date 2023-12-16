@@ -1,12 +1,20 @@
 <script setup>
-import {updateOrders} from "@/api/ordersApi.js";
-import {updateFavorite} from "@/api/api.js";
 
 defineProps({
   sneakers: {
     type: Array
   }
 })
+
+const emit = defineEmits(['sendFavoritesData', 'sendOrdersData'])
+
+const sendFavoritesData = (sneaker) => {
+  emit('sendFavoritesData', sneaker)
+}
+
+const sendOrdersData = (sneaker) => {
+  emit('sendOrdersData', sneaker)
+}
 </script>
 
 <template>
@@ -15,8 +23,8 @@ defineProps({
       v-for="sneaker in sneakers"
       :key="sneaker.id"
       :sneaker="sneaker"
-      @update-favorite="updateFavorite"
-      @update-cart="updateOrders"
+      @send-favorites-data="sendFavoritesData"
+      @send-orders-data="sendOrdersData"
     ></card-item>
   </div>
 </template>
