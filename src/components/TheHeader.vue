@@ -1,4 +1,7 @@
 <script setup>
+import { calcCartQuantity, calcCartPrice, calcPercent } from '@/api/cart.js'
+import { orders } from '@/constans/constans.js'
+
 const emit = defineEmits(['open-cart'])
 
 const openCart = () => {
@@ -23,7 +26,15 @@ const openCart = () => {
         <li class="flex items-center cursor-pointer gap-3 text-gray-500 hover:text-black">
           <a href="#" class="flex gap-2.5" @click.prevent="openCart">
             <img src="@/assets/img/cart.svg" alt="Корзина" />
-            <span class="text-[#5C5C5C] font-normal">Корзина</span>
+            <span
+              :class="orders.length > 0 ? 'font-bold text-black' : 'font-normal text-[#5C5C5C]'"
+            >
+              {{
+                orders.length > 0
+                  ? `${(calcCartPrice() + calcPercent()).toFixed(2)} руб.`
+                  : 'Корзина'
+              }}
+            </span>
           </a>
         </li>
         <router-link to="/Favorites">

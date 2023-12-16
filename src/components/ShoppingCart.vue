@@ -1,6 +1,9 @@
 <script setup>
+import { onMounted, watch } from 'vue'
+import { fetchOrders, updateOrders } from '@/api/ordersApi.js'
+import { calcCartPrice, calcPercent, buySneaker } from '@/api/cart.js'
 import ArrowRightIcon from '@heroicons/vue/24/solid/ArrowRightIcon'
-import { orders } from '@/constans/constans.js'
+import { orders, ordersIsBought } from '@/constans/constans.js'
 import ArrowLeftIcon from '@heroicons/vue/24/solid/ArrowLeftIcon'
 
 defineProps({
@@ -8,8 +11,12 @@ defineProps({
     type: Boolean
   }
 })
+onMounted(() => {
+  fetchOrders()
+})
 
 const emit = defineEmits(['close-cart', 'updateCart'])
+watch(orders, () => updateOrders())
 </script>
 
 <template>
@@ -26,11 +33,28 @@ const emit = defineEmits(['close-cart', 'updateCart'])
       <div class="flex flex-col gap-3 h-4/5">
         <cart-header @close-cart="emit('close-cart')"></cart-header>
 
-        <cart-list v-if="orders.length"></cart-list>
+        <cart-list v-if="orders.length && !ordersIsBought"></cart-list>
         <div v-else class="flex flex-col gap-3 items-center justify-center h-full">
-          <img src="@/assets/img/package-icon.png" alt="" class="h-32 w-32">
-          <h3 class="font-semibold text-2xl">Корзина пустая</h3>
-          <p class="text-lg text-[#9D9D9D] max-w-sm text-center">Добавьте хотя бы одну пару кроссовок, чтобы сделать заказ.</p>
+          <img
+            :src="
+              ordersIsBought
+                ? '../src/assets/img/order-success-icon.png'
+                : '../src/assets/img/package-icon.png'
+            "
+            alt=""
+            class="h-32 w-32"
+          />
+          <h3 class="font-semibold text-2xl">
+            <!--            Корзина пустая-->
+            {{ ordersIsBought ? 'Заказ оформлен!' : 'Корзина пустая' }}
+          </h3>
+          <p class="text-lg text-[#9D9D9D] max-w-sm text-center">
+            {{
+              ordersIsBought
+                ? 'Ваш заказ скоро будет передан курьерской доставке'
+                : 'Добавьте хотя бы одну пару кроссовок, чтобы сделать заказ.'
+            }}
+          </p>
           <button
             class="relative bg-lime-500 hover:bg-lime-600 active:bg-lime-700 disabled:bg-slate-300 text-white w-3/4 rounded-2xl p-5 mt-3"
             @click="emit('close-cart')"
@@ -47,15 +71,16 @@ const emit = defineEmits(['close-cart', 'updateCart'])
         <div class="flex gap-2 items-center">
           <span>Итого:</span>
           <div class="flex-1 border-b border-dashed"></div>
-          <b>21 498 руб.</b>
+          <b>{{ (calcCartPrice() + calcPercent()).toFixed(2) }} руб.</b>
         </div>
         <div class="flex gap-2 items-center">
           <span>Налог 5%:</span>
           <div class="flex-1 border-b border-dashed"></div>
-          <b>1074 руб.</b>
+          <b>{{ calcPercent().toFixed(2) }} руб.</b>
         </div>
         <button
-          disabled
+          v-bind:disabled="orders.length === 0"
+          @click="buySneaker"
           class="relative bg-lime-500 hover:bg-lime-600 active:bg-lime-700 disabled:bg-slate-300 text-white w-full rounded-2xl p-5 mt-3"
         >
           <span class="flex items-center justify-center gap-5 font-semibold text-xl">
