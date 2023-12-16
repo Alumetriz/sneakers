@@ -1,12 +1,34 @@
 <script setup>
-import {ref} from "vue";
+import { ref } from 'vue'
 import MagnifyingGlassIcon from '@heroicons/vue/24/outline/MagnifyingGlassIcon.js'
 
 const emit = defineEmits(['sort', 'search'])
 
+// const onSelected = (e) => {
+//   emit('sort', e.target.value)
+// }
+
 const onSelected = (e) => {
-  emit('sort', e.target.value)
-}
+  const selectedValue = e.target.value;
+
+  let sortBy;
+  let sortOrder;
+
+  if (selectedValue.startsWith('name')) {
+    sortBy = 'name';
+  } else if (selectedValue.startsWith('price')) {
+    sortBy = 'price';
+  }
+
+  if (selectedValue.endsWith('_asc')) {
+    sortOrder = 'asc';
+  } else if (selectedValue.endsWith('_desc')) {
+    sortOrder = 'desc';
+  }
+
+  emit('sort', { sortBy, sortOrder });
+};
+
 
 const searchQuery = ref('')
 
@@ -24,9 +46,9 @@ const onSearch = (e) => {
         class="text-gray-900 rounded-lg border border-gray-300 focus:ring-[##E7F6FF] focus:border-[#E7F6FF] shadow-sm"
         @change="onSelected"
       >
-        <option value="name">По названию</option>
-        <option value="price">По цене (дешевые)</option>
-        <option value="-price">По цене (дорогие)</option>
+        <option value="name_asc">По названию</option>
+        <option value="price_asc">По цене (дешевые)</option>
+        <option value="price_desc">По цене (дорогие)</option>
       </select>
 
       <div class="relative">

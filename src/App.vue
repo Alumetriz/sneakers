@@ -12,10 +12,6 @@ const openCart = () => {
 const closeCart = () => {
   cartIsOpen.value = false
 }
-
-// onMounted(() => {
-//   fetchOrders()
-// })
 </script>
 
 <template>
@@ -26,8 +22,6 @@ const closeCart = () => {
       :cart-is-open="cartIsOpen"
       @close-cart="closeCart"
     ></shopping-cart>
-<!--      :orders="orders"-->
-<!--      @update-cart="updateOrders"-->
 
     <router-view></router-view>
   </div>

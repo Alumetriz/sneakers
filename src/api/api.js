@@ -3,18 +3,22 @@ import { sneakers, filters } from '@/constans/constans.js'
 
 export const fetchData = async () => {
   try {
-    const params = {
-      sortBy: filters.sortBy
+    const params = {};
+
+    if (filters.sortBy) {
+      params._sort = filters.sortBy.sortBy;
+      params._order = filters.sortBy.sortOrder;
     }
+    console.log(filters)
 
     if (filters.searchQuery) {
-      params.title = `*${filters.searchQuery}*`
+      params.q = `${filters.searchQuery}`
     }
 
     const { data } = await axios.get(`http://localhost:3000/items`, {
       params
     })
-
+    console.log(data)
     const { data: orders } = await axios.get(`http://localhost:3000/orders`)
     const { data: fav } = await axios.get(`http://localhost:3000/favorites`)
     // console.log(fav)

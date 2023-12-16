@@ -1,10 +1,12 @@
 <script setup>
 import ArrowRightIcon from '@heroicons/vue/24/solid/ArrowRightIcon'
+import { orders } from '@/constans/constans.js'
+import ArrowLeftIcon from '@heroicons/vue/24/solid/ArrowLeftIcon'
 
 defineProps({
   cartIsOpen: {
     type: Boolean
-  },
+  }
 })
 
 const emit = defineEmits(['close-cart', 'updateCart'])
@@ -24,10 +26,24 @@ const emit = defineEmits(['close-cart', 'updateCart'])
       <div class="flex flex-col gap-3 h-4/5">
         <cart-header @close-cart="emit('close-cart')"></cart-header>
 
-        <cart-list></cart-list>
+        <cart-list v-if="orders.length"></cart-list>
+        <div v-else class="flex flex-col gap-3 items-center justify-center h-full">
+          <img src="@/assets/img/package-icon.png" alt="" class="h-32 w-32">
+          <h3 class="font-semibold text-2xl">Корзина пустая</h3>
+          <p class="text-lg text-[#9D9D9D] max-w-sm text-center">Добавьте хотя бы одну пару кроссовок, чтобы сделать заказ.</p>
+          <button
+            class="relative bg-lime-500 hover:bg-lime-600 active:bg-lime-700 disabled:bg-slate-300 text-white w-3/4 rounded-2xl p-5 mt-3"
+            @click="emit('close-cart')"
+          >
+            <span class="flex items-center justify-center gap-5 font-semibold text-xl">
+              <ArrowLeftIcon class="w-6 h-6 transition arrow-icon-left" />
+              Вернуться назад
+            </span>
+          </button>
+        </div>
       </div>
 
-      <div class="flex flex-col gap-3">
+      <div v-if="orders.length" class="flex flex-col gap-3">
         <div class="flex gap-2 items-center">
           <span>Итого:</span>
           <div class="flex-1 border-b border-dashed"></div>
@@ -39,12 +55,12 @@ const emit = defineEmits(['close-cart', 'updateCart'])
           <b>1074 руб.</b>
         </div>
         <button
-            disabled
-            class="relative bg-lime-500 hover:bg-lime-600 active:bg-lime-700 disabled:bg-slate-300 text-white w-full rounded-2xl p-5 mt-3"
+          disabled
+          class="relative bg-lime-500 hover:bg-lime-600 active:bg-lime-700 disabled:bg-slate-300 text-white w-full rounded-2xl p-5 mt-3"
         >
           <span class="flex items-center justify-center gap-5 font-semibold text-xl">
             Оформить заказ
-            <ArrowRightIcon class="w-6 h-6 transition arrow-icon" />
+            <ArrowRightIcon class="w-6 h-6 transition arrow-icon-right" />
           </span>
         </button>
       </div>
@@ -53,7 +69,11 @@ const emit = defineEmits(['close-cart', 'updateCart'])
 </template>
 
 <style scoped>
-button:hover .arrow-icon {
+button:hover .arrow-icon-right {
   transform: translateX(4px);
+}
+
+button:hover .arrow-icon-left {
+  transform: translateX(-4px);
 }
 </style>
