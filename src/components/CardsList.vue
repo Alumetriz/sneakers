@@ -6,7 +6,7 @@ defineProps({
   }
 })
 
-const emit = defineEmits(['sendFavoritesData', 'sendOrdersData'])
+const emit = defineEmits(['sendFavoritesData', 'sendOrdersData', 'deleteFavorite', 'deleteOrder'])
 
 const sendFavoritesData = (sneaker) => {
   emit('sendFavoritesData', sneaker)
@@ -14,6 +14,13 @@ const sendFavoritesData = (sneaker) => {
 
 const sendOrdersData = (sneaker) => {
   emit('sendOrdersData', sneaker)
+}
+
+const deleteFavorite = (sneaker) => {
+  emit('deleteFavorite', sneaker)
+}
+const deleteOrder = (sneaker) => {
+  emit('deleteOrder', sneaker)
 }
 </script>
 
@@ -25,6 +32,8 @@ const sendOrdersData = (sneaker) => {
       :sneaker="sneaker"
       @send-favorites-data="sendFavoritesData"
       @send-orders-data="sendOrdersData"
+      @delete-favorite="deleteFavorite"
+      @delete-order="deleteOrder"
     ></card-item>
   </div>
 </template>

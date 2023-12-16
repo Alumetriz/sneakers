@@ -111,24 +111,24 @@
   ],
   "orders": [
     {
-      "title": "Under Armour Curry 8",
-      "type": "Мужские Кроссовки",
-      "price": 15199,
-      "img": "../src/assets/img/sneakers/sneakers-5.jpg",
-      "id": 5,
+      "title": "Puma X Aka Boku Future Rider",
+      "type": "Кроссовки",
+      "price": 8999,
+      "img": "../src/assets/img/sneakers/sneakers-4.jpg",
+      "id": 4,
       "isFavorite": false,
       "isAdded": true
     }
   ],
   "favorites": [
     {
-      "title": "Nike Blazer Mid Suede",
-      "type": "Мужские Кроссовки",
-      "price": 12999,
-      "img": "../src/assets/img/sneakers/sneakers-1.jpg",
-      "id": 1,
+      "title": "Puma X Aka Boku Future Rider",
+      "type": "Кроссовки",
+      "price": 8999,
+      "img": "../src/assets/img/sneakers/sneakers-4.jpg",
+      "id": 4,
       "isFavorite": true,
-      "isAdded": false
+      "isAdded": true
     }
   ]
 }

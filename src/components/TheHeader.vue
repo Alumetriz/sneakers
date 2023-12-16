@@ -1,5 +1,5 @@
 <script setup>
-import { calcCartQuantity, calcCartPrice, calcPercent } from '@/api/cart.js'
+import { calcCartPrice, calcPercent } from '@/api/cart.js'
 import { orders } from '@/constans/constans.js'
 
 const emit = defineEmits(['open-cart'])

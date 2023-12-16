@@ -1,7 +1,7 @@
 <script setup>
 import CartItem from '@/components/CartItem.vue'
 import { orders } from '@/constans/constans.js'
-
+import {deleteOrder} from "@/api/api.js";
 
 </script>
 
@@ -14,6 +14,7 @@ import { orders } from '@/constans/constans.js'
       v-for="order in orders"
       :key="order.id"
       :order="order"
+      @delete-order="deleteOrder"
     ></cart-item>
   </div>
 </template>

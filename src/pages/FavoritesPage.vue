@@ -1,7 +1,7 @@
 <script setup>
 import { onMounted } from 'vue'
-import { favorites } from '@/constans/constans.js'
-import { fetchData } from '@/api/api.js'
+import {favorites, orders} from '@/constans/constans.js'
+import {deleteFavorite, deleteOrder, fetchData, sendFavorite, sendOrder} from '@/api/api.js'
 import ChevronLeftIcon from '@heroicons/vue/24/solid/ChevronLeftIcon'
 
 import ArrowLeftIcon from '@heroicons/vue/24/solid/ArrowLeftIcon.js'
@@ -20,7 +20,14 @@ onMounted(() => {
       <h1 class="font-bold text-3xl">Мои закладки</h1>
     </div>
 
-    <cards-list v-if="favorites.length" :sneakers="favorites"></cards-list>
+    <cards-list
+        v-if="favorites.length"
+        :sneakers="favorites"
+        @delete-favorite="deleteFavorite"
+        @delete-order="deleteOrder"
+        @send-orders-data="sendOrder(orders, 'orders', $event)"
+        @send-favorites-data="sendFavorite(favorites, 'favorites', $event)"
+    ></cards-list>
     <div v-else class="flex flex-col gap-3 items-center justify-center h-full p-11">
       <img src="@/assets/img/emoji-1.png" alt="" class="h-16 w-16" />
       <h3 class="font-semibold text-2xl">Закладок нет :(</h3>

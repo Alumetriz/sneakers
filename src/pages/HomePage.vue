@@ -1,6 +1,6 @@
 <script setup>
 import { onMounted, watch } from 'vue'
-import {fetchData, sendFavorite, sendOrder} from '@/api/api.js'
+import {fetchData, sendFavorite, sendOrder, deleteFavorite, deleteOrder} from '@/api/api.js'
 import { sneakers, filters, favorites, orders } from '@/constans/constans.js'
 
 onMounted(() => {
@@ -22,6 +22,8 @@ const handleSearch = (value) => {
     <cards-list
       :sneakers="sneakers"
       @send-favorites-data="sendFavorite(favorites, 'favorites', $event)"
+      @delete-favorite="deleteFavorite"
+      @delete-order="deleteOrder"
       @send-orders-data="sendOrder(orders, 'orders', $event)"
     ></cards-list>
   </main>

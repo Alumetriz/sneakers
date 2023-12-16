@@ -1,4 +1,5 @@
 <script setup>
+
 const props = defineProps({
   sneaker: {
     type: Object
@@ -12,7 +13,7 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits(['sendFavoritesData', 'sendOrdersData'])
+const emit = defineEmits(['sendFavoritesData', 'sendOrdersData', 'deleteFavorite', 'deleteOrder'])
 
 const sendFavoritesData = () => {
   emit('sendFavoritesData', props.sneaker)
@@ -21,6 +22,15 @@ const sendFavoritesData = () => {
 const sendOrdersData = () => {
   emit('sendOrdersData', props.sneaker)
 }
+
+const deleteFavorite = () => {
+  emit('deleteFavorite', props.sneaker)
+}
+
+const deleteOrder = () => {
+  emit('deleteOrder', props.sneaker)
+}
+
 </script>
 
 <template>
@@ -39,7 +49,7 @@ const sendOrdersData = () => {
       src="@/assets/img/like-2.svg"
       alt=""
       class="absolute cursor-pointer h-9 w-9"
-      @click="sendFavoritesData"
+      @click="deleteFavorite"
     />
     <img :src="sneaker.img" alt="Sneakers" />
 
@@ -63,7 +73,7 @@ const sendOrdersData = () => {
         src="@/assets/img/checked.svg"
         alt="Added"
         class="cursor-pointer h-9 w-9"
-        @click="sendOrdersData"
+        @click="deleteOrder"
       />
     </div>
   </div>
