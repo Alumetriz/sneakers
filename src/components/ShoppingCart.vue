@@ -1,5 +1,7 @@
 <script setup>
+import {onMounted, watch} from 'vue'
 import { calcCartPrice, calcPercent, buySneaker } from '@/api/cart.js'
+import { fetchData } from '@/api/api.js'
 import ArrowRightIcon from '@heroicons/vue/24/solid/ArrowRightIcon'
 import { orders, ordersIsBought } from '@/constans/constans.js'
 import ArrowLeftIcon from '@heroicons/vue/24/solid/ArrowLeftIcon'
@@ -12,6 +14,11 @@ defineProps({
 
 const emit = defineEmits(['close-cart', 'updateCart'])
 
+onMounted(() => {
+  fetchData(orders, 'orders')
+})
+
+watch(orders, () => fetchData(orders, 'orders'))
 </script>
 
 <template>

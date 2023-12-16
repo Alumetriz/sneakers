@@ -1,7 +1,5 @@
 <script setup>
-import { ref } from 'vue'
-// import { fetchOrders, updateOrders } from '@/api/ordersApi.js'
-// import {orders} from "@/constans/constans.js";
+import {ref} from 'vue'
 
 const cartIsOpen = ref(false)
 

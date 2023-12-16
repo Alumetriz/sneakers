@@ -111,31 +111,22 @@
   ],
   "orders": [
     {
-      "title": "Nike Blazer Mid Suede",
+      "title": "Under Armour Curry 8",
       "type": "Мужские Кроссовки",
-      "price": 12999,
-      "img": "../src/assets/img/sneakers/sneakers-1.jpg",
-      "id": 1,
-      "isFavorite": false,
-      "isAdded": true
-    },
-    {
-      "title": "Nike Blazer Mid Suede",
-      "type": "Мужские Кроссовки",
-      "price": 8499,
-      "img": "../src/assets/img/sneakers/sneakers-3.jpg",
-      "id": 3,
+      "price": 15199,
+      "img": "../src/assets/img/sneakers/sneakers-5.jpg",
+      "id": 5,
       "isFavorite": false,
       "isAdded": true
     }
   ],
   "favorites": [
     {
-      "title": "Nike Air Max 270",
+      "title": "Nike Blazer Mid Suede",
       "type": "Мужские Кроссовки",
       "price": 12999,
-      "img": "../src/assets/img/sneakers/sneakers-2.jpg",
-      "id": 2,
+      "img": "../src/assets/img/sneakers/sneakers-1.jpg",
+      "id": 1,
       "isFavorite": true,
       "isAdded": false
     }
